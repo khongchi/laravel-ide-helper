@@ -1,16 +1,12 @@
 {
-    "name": "khongchi/laravel-ide-helper",
-    "description": "Laravel IDE Helper, generates correct PHPDocs for all Facade classes, to improve auto-completion.",
-    "keywords": ["laravel", "autocomplete", "ide", "helper", "phpstorm", "netbeans", "sublime", "codeintel", "phpdoc"],
+    "name": "khongchi/xpressengine-ide-helper",
+    "description": "Xpressengine IDE Helper based on Laravel IDE Helper(barryvdh/laravel-ide-helper), generates correct PHPDocs for all Facade classes, to improve auto-completion.",
+    "keywords": ["xpressengine", "laravel", "autocomplete", "ide", "helper", "phpstorm", "netbeans", "sublime", "codeintel", "phpdoc"],
     "license": "MIT",
     "authors": [
         {
             "name": "Sungbum Hong",
             "email": "sungbum00@gmail.com"
-        },
-        {
-            "name": "Barry vd. Heuvel",
-            "email": "barryvdh@gmail.com"
         }
     ],
     "require": {
