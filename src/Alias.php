@@ -68,6 +68,9 @@ class Alias
     {
         $classes = (array)$classes;
         foreach ($classes as $class) {
+            if(strpos($class, 'Proxy_') === 0) {
+                $class = get_parent_class($class);
+            }
             if (class_exists($class) || interface_exists($class)) {
                 $this->classes[] = $class;
             }else{
