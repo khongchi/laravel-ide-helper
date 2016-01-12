@@ -10,6 +10,9 @@
 
 namespace Barryvdh\LaravelIdeHelper;
 
+use phpDocumentor\Reflection\DocBlock;
+use ReflectionClass;
+
 class Alias
 {
     protected $alias;
@@ -271,7 +274,21 @@ class Alias
                     }
                 }
             }
+
+            $this->detectMethodsFromDoc($reflection);
         }
+    }
+
+    protected function detectMethodsFromDoc(ReflectionClass $reflection)
+    {
+        $docBlock = new DocBlock($reflection);
+
+        $methods = $docBlock->getTagsByName('method');
+
+        foreach ($methods as $method) {
+            $this->methods[] = new MethodTag($method, $this->alias, $reflection, $method->getMethodName(), $this->interfaces);
+        }
+
     }
 
     /**

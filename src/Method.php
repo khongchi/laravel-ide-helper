@@ -17,7 +17,7 @@ use phpDocumentor\Reflection\DocBlock\Tag\ReturnTag;
 use phpDocumentor\Reflection\DocBlock\Tag\ParamTag;
 use phpDocumentor\Reflection\DocBlock\Serializer as DocBlockSerializer;
 
-class Method
+class Method implements MethodInterface
 {
     /** @var \phpDocumentor\Reflection\DocBlock  */
     protected $phpdoc;
