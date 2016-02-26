@@ -79,7 +79,11 @@ class MetaCommand extends Command {
             try {
                 $concrete = $this->laravel->make($abstract);
                 if (is_object($concrete)) {
-                    $bindings[$abstract] = get_class($concrete);
+                    $class = get_class($concrete);
+                    if(strpos($class, 'Proxy_') === 0) {
+                        $class = get_parent_class($class);
+                    }
+                    $bindings[$abstract] = $class;
                 }
             }catch (\Exception $e) {
                 if ($this->output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE) {
