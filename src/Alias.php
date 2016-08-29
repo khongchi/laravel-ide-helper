@@ -57,7 +57,7 @@ class Alias
         $this->detectNamespace();
         $this->detectClassType();
         
-        if($facade === '\Illuminate\Database\Eloquent\Model'){
+        if ($facade === '\Illuminate\Database\Eloquent\Model') {
             $this->usedMethods = array('decrement', 'increment');
         }
     }
@@ -76,7 +76,7 @@ class Alias
             }
             if (class_exists($class) || interface_exists($class)) {
                 $this->classes[] = $class;
-            }else{
+            } else {
                 echo "Class not exists: $class\r\n";
             }
         }
@@ -124,7 +124,8 @@ class Alias
     /**
      * Return the short name (without namespace)
      */
-    public function getShortName(){
+    public function getShortName()
+    {
         return $this->short;
     }
     /**
@@ -158,7 +159,7 @@ class Alias
             $nsParts = explode('\\', $this->alias);
             $this->short = array_pop($nsParts);
             $this->namespace = implode('\\', $nsParts);
-        }else{
+        } else {
             $this->short = $this->alias;
         }
     }
@@ -207,7 +208,9 @@ class Alias
             //When the database connection is not set, some classes will be skipped
         } catch (\PDOException $e) {
             $this->error(
-                "PDOException: " . $e->getMessage() . "\nPlease configure your database connection correctly, or use the sqlite memory driver (-M). Skipping $facade."
+                "PDOException: " . $e->getMessage() .
+                "\nPlease configure your database connection correctly, or use the sqlite memory driver (-M)." .
+                " Skipping $facade."
             );
         } catch (\Exception $e) {
             $this->error("Exception: " . $e->getMessage() . "\nSkipping $facade.");
@@ -233,16 +236,16 @@ class Alias
      */
     protected function addMagicMethods()
     {
-        foreach($this->magicMethods as $magic => $real){
+        foreach ($this->magicMethods as $magic => $real) {
             list($className, $name) = explode('::', $real);
-            if(!class_exists($className) && !interface_exists($className)){
+            if (!class_exists($className) && !interface_exists($className)) {
                 continue;
             }
             $method = new \ReflectionMethod($className, $name);
             $class = new \ReflectionClass($className);
 
-            if(!in_array($method->name, $this->usedMethods)){
-                if($class !== $this->root){
+            if (!in_array($method->name, $this->usedMethods)) {
+                if ($class !== $this->root) {
                     $this->methods[] = new Method($method, $this->alias, $class, $magic, $this->interfaces);
                 }
                 $this->usedMethods[] = $magic;
@@ -268,28 +271,35 @@ class Alias
                         // Only add the methods to the output when the root is not the same as the class.
                         // And don't add the __*() methods
                         if ($this->extends !== $class && substr($method->name, 0, 2) !== '__') {
-                            $this->methods[] = new Method($method, $this->alias, $reflection, $method->name, $this->interfaces);
+                            $this->methods[] = new Method(
+                                $method,
+                                $this->alias,
+                                $reflection,
+                                $method->name,
+                                $this->interfaces
+                            );
                         }
                         $this->usedMethods[] = $method->name;
                     }
                 }
             }
 
-            $this->detectMethodsFromDoc($reflection);
+		    $this->detectMethodsFromDoc($reflection);	
         }
     }
 
     protected function detectMethodsFromDoc(ReflectionClass $reflection)
     {
         $docBlock = new DocBlock($reflection);
-
+ 
         $methods = $docBlock->getTagsByName('method');
-
+ 
         foreach ($methods as $method) {
             $this->methods[] = new MethodTag($method, $this->alias, $reflection, $method->getMethodName(), $this->interfaces);
         }
-
+ 
     }
+ 
 
     /**
      * Output an error.
@@ -302,3 +312,4 @@ class Alias
         echo $string . "\r\n";
     }
 }
+
