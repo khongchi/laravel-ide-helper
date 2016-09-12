@@ -10,17 +10,12 @@
 
 namespace Barryvdh\LaravelIdeHelper;
 
-use phpDocumentor\Reflection\DocBlock;
-use phpDocumentor\Reflection\DocBlock\Context;
-use phpDocumentor\Reflection\DocBlock\Tag;
-use phpDocumentor\Reflection\DocBlock\Tag\MethodTag as DocBlockMethodTag;
-use phpDocumentor\Reflection\DocBlock\Tag\ReturnTag;
-use phpDocumentor\Reflection\DocBlock\Tag\ParamTag;
-use phpDocumentor\Reflection\DocBlock\Serializer as DocBlockSerializer;
+use Barryvdh\Reflection\DocBlock;
+use Barryvdh\Reflection\DocBlock\Tag\MethodTag as DocBlockMethodTag;
 
 class MethodTag implements MethodInterface
 {
-    /** @var \phpDocumentor\Reflection\DocBlock  */
+    /** @var \Barryvdh\Reflection\DocBlock  */
     protected $phpdoc;
 
     /** @var DocBlockMethodTag  */

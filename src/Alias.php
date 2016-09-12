@@ -10,7 +10,7 @@
 
 namespace Barryvdh\LaravelIdeHelper;
 
-use phpDocumentor\Reflection\DocBlock;
+use Barryvdh\Reflection\DocBlock;
 use ReflectionClass;
 
 class Alias
